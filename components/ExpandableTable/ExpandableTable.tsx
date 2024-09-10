@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useMemo } from "react";
 import { Table, TableBody } from "@/components/ui/table";
 import TableHeader from "./TableHeader";
 import TableItemCollapsible from "./TableItemCollapsible";
@@ -55,7 +55,11 @@ const ExpandableTable = <T extends { id: number }>({
     ]);
   }, [setBreadcrumb, setBreadcrumbNamePath, breadcrumbNamePath, rootName]);
 
-  const filteredItems = useFilters((items as any) || [], filters);
+  //TODO find better solution. Problem - I cant use hooks inside loops
+  let filteredItems = useFilters(items as any, filters[0]);
+  filteredItems = useFilters(filteredItems, filters[1]);
+  filteredItems = useFilters(filteredItems, filters[2]);
+  filteredItems = useFilters(filteredItems, filters[3]);
 
   const { sortedItems, sortColumnId, sortDirection, updateSortDirection } =
     useSort(

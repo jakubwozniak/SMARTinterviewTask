@@ -7,15 +7,11 @@ interface FilterSelector<T> {
   filterFunc: (user: T, filterValue: string) => boolean;
 }
 
-const useFilters = <T>(data: T[], filters: FilterSelector<T>[]) => {
-  const filterValues = filters.map((filter) => useSelector(filter.selector));
+const useFilters = <T>(data: T[], filter: FilterSelector<T>) => {
+  const filterValue = useSelector(filter.selector);
   const filteredData = useMemo(() => {
-    return data.filter((_data) =>
-      filters.every((filter, index) =>
-        filter.filterFunc(_data, filterValues[index])
-      )
-    );
-  }, [data, filters, filterValues]);
+    return data.filter((_data) => filter.filterFunc(_data, filterValue));
+  }, [data, filter, filterValue]);
 
   return filteredData;
 };
