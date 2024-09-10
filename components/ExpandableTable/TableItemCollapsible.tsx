@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../ui/collapsible";
 
 import TableRow from "./TableRow";
 import { TableRow as ShadcnTableRow, TableCell } from "@/components/ui/table";
@@ -41,45 +36,6 @@ const TableItemCollapsible = <T extends { id: number } | undefined>({
       item={item}
       columns={columns as Column<unknown>[]}
     />
-  );
-
-  if (!DetailsComponent) {
-    return (
-      <TableRow
-        className={props.className}
-        item={item}
-        columns={columns as Column<unknown>[]}
-      />
-    );
-  }
-
-  return (
-    <Collapsible key={item!.id} asChild open={breadcrumbIds.includes(item!.id)}>
-      <>
-        <CollapsibleTrigger
-          asChild
-          onClick={() =>
-            handleTriggerClick(
-              item!.id,
-              getPropertyByPath(item, breadcrumbNamePath)
-            )
-          }
-        >
-          <TableRow
-            className={props.className}
-            item={item}
-            columns={columns as Column<unknown>[]}
-          />
-        </CollapsibleTrigger>
-        <CollapsibleContent asChild>
-          <ShadcnTableRow className={props.className}>
-            <TableCell colSpan={columns.length} className="bg-slate-50 py-12">
-              <DetailsComponent item={item} {...props} />
-            </TableCell>
-          </ShadcnTableRow>
-        </CollapsibleContent>
-      </>
-    </Collapsible>
   );
 };
 
