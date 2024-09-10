@@ -35,6 +35,7 @@ const UsersTable = <T,>({ columns, rootName }: UsersTableProps<T>) => {
   }
 
   if (error) {
+    console.log(error);
     return (
       <Card className="p-6">
         <Error error={"Error loading data. Please try again later."} />
