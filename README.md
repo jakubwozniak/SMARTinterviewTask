@@ -1,8 +1,13 @@
-# KongsbergTable
+# SMARTinterviewTask
 
-KongsbergTable is a web application developed as part of a recruitment process to showcase web development skills. The application is designed to display and browse various types of data using customizable table components. Currently, it retrieves and displays books from the Google Books API, but it's flexible to work with any type of data due to its generic component design. The layout emphasizes a modern aesthetic that is both clear and intuitive for users, and it is fully responsive to ensure optimal viewing and interaction on various devices.
+SMARTinterviewTask is a web application developed as part of a recruitment process to showcase web development skills. The application is designed to display and browse various types of data using customizable table components. Currently, it retrieves and displays users from the JSONPlaceholder API, but it's flexible to work with any type of data due to its generic component design. The layout emphasizes a modern aesthetic that is both clear and intuitive for users, and it is fully responsive to ensure optimal viewing and interaction on various devices.
 
-<img width="1024" alt="table" src="https://github.com/jakubwozniak/kongsberg-table/assets/8446297/746963e9-7efe-4ab4-872a-8346ae07dacb">
+In the latest version, global filters were implemented using Redux, enabling the filtering of users across all tables.
+
+<img width="1280" alt="image" src="https://github.com/user-attachments/assets/dbe0ddd5-9d14-4217-b5a7-324721ac1c44">
+<img width="1280" alt="image" src="https://github.com/user-attachments/assets/63a2d5b2-d882-47f8-a2da-7d73f29c57ab">
+
+
 
 
 ## 📋 <a name="table">Table of Contents</a>
@@ -17,15 +22,19 @@ KongsbergTable is a web application developed as part of a recruitment process t
 - TypeScript
 - TailwindCSS
 - ShadCN
+- Redux
+- Redux Toolkit
 - RTK Query
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Browse Books:** Fetches and categorizes books from the Google Books API.
+👉 **Browse Users:** Fetches and categorizes books from the Google Books API.
 
 👉 **Sortable Columns:** Users can sort data by any column in the table.
 
 👉 **RTK Query and React Context:** Utilizes RTK Query for efficient API fetching and React context for state management.
+
+👉 **Global Filters with Redux Toolkit:** Implements global filters using Redux Toolkit, enabling consistent filtering across the entire application.
 
 👉 **Column Visibility:** Allows users to hide columns to focus on specific data of interest.
 
@@ -57,9 +66,7 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-NEXT_PUBLIC_GOOGLE_API_URL=https://www.googleapis.com/books/v1/volumes
-GOOGLE_API_KEY=
-
+NEXT_PUBLIC_USERS_API_URL=https://jsonplaceholder.typicode.com/users
 ```
 
 You can obtain GOOGLE_API_KEY by signing up on the  [Google](https://console.cloud.google.com/apis/credentials)
