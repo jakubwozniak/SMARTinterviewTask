@@ -46,11 +46,6 @@ interface Book {
   };
 }
 
-interface BooksResponse {
-  items: Book[];
-  totalItems: number;
-}
-
 interface Column<T> {
   header: string;
   accessor: (item: T) => React.ReactNode;
@@ -80,10 +75,6 @@ interface Category {
 interface UsersTableProps<T> {
   columns: Column<T>[];
   rootName: string;
-}
-
-interface BooksTableProps<T> {
-  columns: Column<T>[];
 }
 
 interface TableCardHeaderProps<T> {

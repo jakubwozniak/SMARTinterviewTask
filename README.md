@@ -7,9 +7,6 @@ In the latest version, global filters were implemented using Redux, enabling the
 <img width="1280" alt="image" src="https://github.com/user-attachments/assets/dbe0ddd5-9d14-4217-b5a7-324721ac1c44">
 <img width="1280" alt="image" src="https://github.com/user-attachments/assets/63a2d5b2-d882-47f8-a2da-7d73f29c57ab">
 
-
-
-
 ## 📋 <a name="table">Table of Contents</a>
 
 1. ⚙️ [Tech Stack](#tech-stack)
@@ -28,7 +25,7 @@ In the latest version, global filters were implemented using Redux, enabling the
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Browse Users:** Fetches and categorizes books from the Google Books API.
+👉 **Browse Users:** Fetches and categorizes users from the API.
 
 👉 **Sortable Columns:** Users can sort data by any column in the table.
 
@@ -52,7 +49,6 @@ Make sure you have the following installed on your machine:
 - [Node.js](https://nodejs.org/en)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
-
 **Installation**
 
 Install the project dependencies using npm:
@@ -66,10 +62,10 @@ npm install
 Create a new file named `.env` in the root of your project and add the following content:
 
 ```env
-NEXT_PUBLIC_USERS_API_URL=https://jsonplaceholder.typicode.com/users
+USERS_API_URL=https://jsonplaceholder.typicode.com/users
 ```
 
-You can obtain GOOGLE_API_KEY by signing up on the  [Google](https://console.cloud.google.com/apis/credentials)
+You can obtain GOOGLE_API_KEY by signing up on the [Google](https://console.cloud.google.com/apis/credentials)
 
 **Running the Project**
 
