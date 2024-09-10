@@ -1,6 +1,6 @@
 {
-  "name": "kongsberg-table",
-  "version": "0.1.0",
+  "name": "smartinterviewtask",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
