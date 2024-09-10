@@ -9,7 +9,7 @@ import TableRow from "./TableRow";
 import { TableRow as ShadcnTableRow, TableCell } from "@/components/ui/table";
 import { useBreadcrumb } from "@/providers/BreadcrumbProvider";
 import { getPropertyByPath } from "@/lib/utils";
-const TableItemCollapsible = <T extends { id: string } | undefined>({
+const TableItemCollapsible = <T extends { id: number } | undefined>({
   DetailsComponent,
   item,
   columns,
@@ -34,6 +34,24 @@ const TableItemCollapsible = <T extends { id: string } | undefined>({
         onClick: () => null,
       });
   };
+
+  return (
+    <TableRow
+      className={props.className}
+      item={item}
+      columns={columns as Column<unknown>[]}
+    />
+  );
+
+  if (!DetailsComponent) {
+    return (
+      <TableRow
+        className={props.className}
+        item={item}
+        columns={columns as Column<unknown>[]}
+      />
+    );
+  }
 
   return (
     <Collapsible key={item!.id} asChild open={breadcrumbIds.includes(item!.id)}>

@@ -19,15 +19,15 @@ const TableCardHeader = <T,>({
     <CardHeader>
       <div className="px-2 pt-2 flex text-muted-foreground">
         <TableBreadcrumb />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="ml-auto">
-              <Eye className="h-4 w-4" />
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {
-              columns?.map((column) => {
+        {toggleColumnHiding && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="ml-auto">
+                <Eye className="h-4 w-4" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {columns?.map((column) => {
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.header}
@@ -48,27 +48,10 @@ const TableCardHeader = <T,>({
                     </span>
                   </DropdownMenuCheckboxItem>
                 );
-              })
-              /*table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })*/
-            }
-          </DropdownMenuContent>
-        </DropdownMenu>
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
     </CardHeader>
   );

@@ -1,3 +1,34 @@
+interface IGeo {
+  lat: string;
+  lng: string;
+}
+
+interface IAddress {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: IGeo;
+}
+
+interface ICompany {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+}
+
+interface IUser {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: IAddress;
+  phone: string;
+  website: string;
+  company: ICompany;
+  categories?: string[];
+}
+
 interface Book {
   id: string;
   volumeInfo: {
@@ -29,14 +60,14 @@ interface Column<T> {
 }
 
 interface ExpandableTableProps<T> {
-  DetailsComponent: React.ComponentType<any>;
+  DetailsComponent?: React.ComponentType<any>;
   items: T[];
   columns: Column<T>[];
   rootName: string;
-  breadcrumbNamePath: string;
-  itemCategoryPath: string;
-  listOfCategories: Category[];
-  defaultSortColumnId?: number | null;
+  breadcrumbNamePath?: string;
+  itemCategoryPath?: string;
+  listOfCategories?: Category[];
+  defaultSortColumnId?: string | null;
   defaultSortDirection?: SortDirection;
   [key: string]: any;
 }
@@ -46,13 +77,18 @@ interface Category {
   color: string;
 }
 
+interface UsersTableProps<T> {
+  columns: Column<T>[];
+  rootName: string;
+}
+
 interface BooksTableProps<T> {
   columns: Column<T>[];
 }
 
 interface TableCardHeaderProps<T> {
   columns: Column<T>[];
-  toggleColumnHiding: (id: string) => void;
+  toggleColumnHiding?: (id: string) => void;
 }
 
 interface TableHeaderProps<T> {
@@ -70,7 +106,7 @@ interface TableRowProps<T> {
 }
 
 interface TableItemCollapsibleProps<T> {
-  DetailsComponent: React.ComponentType<any>;
+  DetailsComponent?: React.ComponentType<any>;
   item: T;
   columns: Column<T>[];
   [key: string]: any;
@@ -94,7 +130,9 @@ interface BreadcrumbContextType {
 }
 
 interface BreadcrumbProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
+  defaultBreadcrumb?: BreadcrumbItem[];
+  defaultBreadcrumbNamePath?: string;
 }
 
 interface BreadcrumbItem {

@@ -16,20 +16,18 @@ const useCategorize = <T>(
 
     items.forEach((item) => {
       const categories = getPropertyByPath(item, itemCategoryPath) as string[];
-      if (!Array.isArray(categories)) return;
-
       let categorized = false;
-
-      categories.forEach((categoryName) => {
-        const matchingCategory = listOfCategories.find(
-          (category) => category.name === categoryName
-        );
-        if (matchingCategory) {
-          categoryItems[matchingCategory.name].push(item);
-          categorized = true;
-        }
-      });
-
+      if (Array.isArray(categories)) {
+        categories.forEach((categoryName) => {
+          const matchingCategory = listOfCategories.find(
+            (category) => category.name === categoryName
+          );
+          if (matchingCategory) {
+            categoryItems[matchingCategory.name].push(item);
+            categorized = true;
+          }
+        });
+      }
       if (!categorized) {
         otherItems.push(item);
       }

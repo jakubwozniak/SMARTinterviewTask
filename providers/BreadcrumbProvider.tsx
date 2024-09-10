@@ -14,9 +14,14 @@ export const useBreadcrumb = () => {
 
 export const BreadcrumbProvider: React.FC<BreadcrumbProviderProps> = ({
   children,
+  defaultBreadcrumb = [],
+  defaultBreadcrumbNamePath = "",
 }) => {
-  const [breadcrumbNamePath, setBreadcrumbNamePath] = useState<string>("");
-  const [breadcrumb, setBreadcrumb] = useState<BreadcrumbItem[]>([]);
+  const [breadcrumbNamePath, setBreadcrumbNamePath] = useState<string>(
+    defaultBreadcrumbNamePath
+  );
+  const [breadcrumb, setBreadcrumb] =
+    useState<BreadcrumbItem[]>(defaultBreadcrumb);
   const [breadcrumbIds, setBreadcrumbIds] = useState<string[]>([]);
 
   const addBreadcrumbItem = (item: BreadcrumbItem) => {

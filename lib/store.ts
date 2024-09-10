@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import booksReducer from "./state/books/booksSlice";
-import { booksApi } from "./state/books/apiSlice";
+import usersReducer from "./state/users/usersSlice";
+import { usersApi } from "./state/users/apiSlice";
 
 export const store = configureStore({
   reducer: {
-    books: booksReducer,
-    [booksApi.reducerPath]: booksApi.reducer,
-  }, // Using `as any` to workaround TypeScript error
+    users: usersReducer,
+    [usersApi.reducerPath]: usersApi.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(booksApi.middleware),
+    getDefaultMiddleware().concat(usersApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

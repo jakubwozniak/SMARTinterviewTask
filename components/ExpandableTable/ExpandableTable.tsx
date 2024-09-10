@@ -1,41 +1,74 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { Table, TableBody } from "@/components/ui/table";
 import TableHeader from "./TableHeader";
 import TableItemCollapsible from "./TableItemCollapsible";
 import { useBreadcrumb } from "@/providers/BreadcrumbProvider";
 import ExpandableRow from "./ExpandableRow";
-import useSort from "./useSort";
-import useCategorize from "./useCategorize";
+import useCategorize from "../../app/hooks/useCategorize";
+import useFilters from "../../app/hooks/useFilters";
+import useSort from "@/app/hooks/useSort";
+import { RootState } from "@/lib/store";
 
-const ExpandableTable = <T extends { id: string } | undefined>({
+const filters = [
+  {
+    selector: (state: RootState) => state.users.filters.name,
+    filterFunc: (user: IUser, filterValue: string) =>
+      user.name.toLowerCase().includes(filterValue.toLowerCase()),
+  },
+  {
+    selector: (state: RootState) => state.users.filters.username,
+    filterFunc: (user: IUser, filterValue: string) =>
+      user.username.toLowerCase().includes(filterValue.toLowerCase()),
+  },
+  {
+    selector: (state: RootState) => state.users.filters.email,
+    filterFunc: (user: IUser, filterValue: string) =>
+      user.email.toLowerCase().includes(filterValue.toLowerCase()),
+  },
+  {
+    selector: (state: RootState) => state.users.filters.phone,
+    filterFunc: (user: IUser, filterValue: string) =>
+      user.phone.toLowerCase().includes(filterValue.toLowerCase()),
+  },
+];
+
+const ExpandableTable = <T extends { id: number }>({
   DetailsComponent,
   items,
   columns,
   rootName,
   breadcrumbNamePath,
-  itemCategoryPath,
-  listOfCategories,
+  itemCategoryPath = "",
+  listOfCategories = [],
   defaultSortColumnId = null,
   defaultSortDirection = { direction: "asc" },
   ...props
 }: ExpandableTableProps<T>) => {
   const { setBreadcrumb, setBreadcrumbNamePath } = useBreadcrumb();
+
+  useEffect(() => {
+    const handleBreadcrumbClick = () => setBreadcrumb((prev) => [prev[0]]);
+    setBreadcrumbNamePath(breadcrumbNamePath ? breadcrumbNamePath : "");
+    setBreadcrumb([
+      { id: rootName, label: rootName, onClick: handleBreadcrumbClick },
+    ]);
+  }, [setBreadcrumb, setBreadcrumbNamePath, breadcrumbNamePath, rootName]);
+
+  const filteredItems = useFilters((items as any) || [], filters);
+
   const { sortedItems, sortColumnId, sortDirection, updateSortDirection } =
-    useSort(items, columns, defaultSortColumnId, defaultSortDirection);
+    useSort(
+      filteredItems as any,
+      columns,
+      defaultSortColumnId,
+      defaultSortDirection
+    );
   const categorizedItems: { [key: string]: T[] } = useCategorize(
     sortedItems,
     itemCategoryPath,
     listOfCategories
   );
-
-  useEffect(() => {
-    const handleBreadcrumbClick = () => setBreadcrumb((prev) => [prev[0]]);
-    setBreadcrumbNamePath(breadcrumbNamePath);
-    setBreadcrumb([
-      { id: rootName, label: rootName, onClick: handleBreadcrumbClick },
-    ]);
-  }, [setBreadcrumb, setBreadcrumbNamePath, breadcrumbNamePath, rootName]);
 
   if (!items.length) throw new Error("No items to render.");
 
