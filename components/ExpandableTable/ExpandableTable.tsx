@@ -9,29 +9,16 @@ import useCategorize from "../../app/hooks/useCategorize";
 import useFilters from "../../app/hooks/useFilters";
 import useSort from "@/app/hooks/useSort";
 import { RootState } from "@/lib/store";
+import { useSelector } from "react-redux";
 
-const filters = [
-  {
-    selector: (state: RootState) => state.users.filters.name,
-    filterFunc: (user: IUser, filterValue: string) =>
-      user.name.toLowerCase().includes(filterValue.toLowerCase()),
-  },
-  {
-    selector: (state: RootState) => state.users.filters.username,
-    filterFunc: (user: IUser, filterValue: string) =>
-      user.username.toLowerCase().includes(filterValue.toLowerCase()),
-  },
-  {
-    selector: (state: RootState) => state.users.filters.email,
-    filterFunc: (user: IUser, filterValue: string) =>
-      user.email.toLowerCase().includes(filterValue.toLowerCase()),
-  },
-  {
-    selector: (state: RootState) => state.users.filters.phone,
-    filterFunc: (user: IUser, filterValue: string) =>
-      user.phone.toLowerCase().includes(filterValue.toLowerCase()),
-  },
-];
+const nameFilter: FilterFunc<IUser> = (user, filterValue) =>
+  user.name.toLowerCase().includes(filterValue.toLowerCase());
+const usernameFilter: FilterFunc<IUser> = (user, filterValue) =>
+  user.username.toLowerCase().includes(filterValue.toLowerCase());
+const emailFilter: FilterFunc<IUser> = (user, filterValue) =>
+  user.email.toLowerCase().includes(filterValue.toLowerCase());
+const phoneFilter: FilterFunc<IUser> = (user, filterValue) =>
+  user.phone.toLowerCase().includes(filterValue.toLowerCase());
 
 const ExpandableTable = <T extends { id: number }>({
   DetailsComponent,
@@ -55,11 +42,16 @@ const ExpandableTable = <T extends { id: number }>({
     ]);
   }, [setBreadcrumb, setBreadcrumbNamePath, breadcrumbNamePath, rootName]);
 
-  //TODO find better solution. Problem - I cant use hooks inside loops
-  let filteredItems = useFilters(items as any, filters[0]);
-  filteredItems = useFilters(filteredItems, filters[1]);
-  filteredItems = useFilters(filteredItems, filters[2]);
-  filteredItems = useFilters(filteredItems, filters[3]);
+  const filterValues = useSelector((state: RootState) => state.users.filters);
+
+  const filters = [
+    (user: IUser) => nameFilter(user, filterValues.name),
+    (user: IUser) => usernameFilter(user, filterValues.username),
+    (user: IUser) => emailFilter(user, filterValues.email),
+    (user: IUser) => phoneFilter(user, filterValues.phone),
+  ];
+
+  const filteredItems = useFilters(items as any, filters);
 
   const { sortedItems, sortColumnId, sortDirection, updateSortDirection } =
     useSort(

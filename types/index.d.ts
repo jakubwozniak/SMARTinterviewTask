@@ -66,7 +66,7 @@ interface ExpandableTableProps<T> {
   defaultSortDirection?: SortDirection;
   [key: string]: any;
 }
-
+type FilterFunc<T> = (item: T, filterValue: string) => boolean;
 interface Category {
   name: string;
   color: string;

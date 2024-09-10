@@ -1,17 +1,14 @@
-import { RootState } from "@/lib/store";
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 
-interface FilterSelector<T> {
-  selector: (state: RootState) => string;
-  filterFunc: (user: T, filterValue: string) => boolean;
-}
-
-const useFilters = <T>(data: T[], filter: FilterSelector<T>) => {
-  const filterValue = useSelector(filter.selector);
+const useFilters = <T>(data: T[], filters: Array<(item: T) => boolean>) => {
+  console.log(data);
   const filteredData = useMemo(() => {
-    return data.filter((_data) => filter.filterFunc(_data, filterValue));
-  }, [data, filter, filterValue]);
+    return data.filter((item) =>
+      filters.every((filterFunc) => {
+        return filterFunc(item);
+      })
+    );
+  }, [data, filters]);
 
   return filteredData;
 };
