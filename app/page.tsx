@@ -10,7 +10,6 @@ export default function Home() {
 
         <p className="text-center py-6">
           This table contains the solution to the assignment.
-          {process.env.USERS_API_URL}
         </p>
         <UsersTableAllColumns />
         <p className="text-center pt-12 pb-6">
