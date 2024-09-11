@@ -57,16 +57,6 @@ Install the project dependencies using npm:
 npm install
 ```
 
-**Set Up Environment Variables**
-
-Create a new file named `.env` in the root of your project and add the following content:
-
-```env
-USERS_API_URL=https://jsonplaceholder.typicode.com/users
-```
-
-You can obtain GOOGLE_API_KEY by signing up on the [Google](https://console.cloud.google.com/apis/credentials)
-
 **Running the Project**
 
 ```bash
